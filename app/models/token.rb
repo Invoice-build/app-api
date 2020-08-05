@@ -11,6 +11,9 @@
 #  updated_at :datetime         not null
 #
 class Token < ApplicationRecord
+  # ASSOCIATIONS
+  has_many :invoices
+
   # VALIDATIONS
   validates :code, :address, presence: true
   validates :address, uniqueness: true 

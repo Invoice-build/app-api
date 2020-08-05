@@ -13,6 +13,12 @@
 #  updated_at    :datetime         not null
 #
 class LineItem < ApplicationRecord
+  # CONCERNS
+  include Tokenable
+
+  tokenize :unit_price_units, as: :unit_price
+  tokenize :amount_units, as: :amount, validate: false
+
   # ASSOCIATIONS
   belongs_to :invoice
 
@@ -20,7 +26,7 @@ class LineItem < ApplicationRecord
   before_save :set_amount
 
   # VALIDATIONS
-  validates :description, :quantity, :quantity_type, :unit_price, presence: true
+  validates :description, :quantity, :quantity_type, presence: true
 
   private
 

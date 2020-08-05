@@ -5,4 +5,5 @@ Rails.application.routes.draw do
     post '/(:id)', action: :store, on: :collection, as: :store
   end
   resources :tokens, only: [:index]
+  resources :eth_transactions, only: [:create]
 end

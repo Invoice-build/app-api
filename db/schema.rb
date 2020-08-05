@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_26_144753) do
+ActiveRecord::Schema.define(version: 2020_07_30_181254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -41,6 +41,19 @@ ActiveRecord::Schema.define(version: 2020_07_26_144753) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "eth_transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "tx_hash"
+    t.text "reference"
+    t.datetime "confirmed_at"
+    t.datetime "failed_at"
+    t.uuid "transactable_id"
+    t.text "transactable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reference"], name: "index_eth_transactions_on_reference"
+    t.index ["transactable_id"], name: "index_eth_transactions_on_transactable_id"
+  end
+
   create_table "invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "number"
     t.text "token_id"
@@ -64,8 +77,8 @@ ActiveRecord::Schema.define(version: 2020_07_26_144753) do
     t.text "description"
     t.float "quantity"
     t.text "quantity_type"
-    t.float "unit_price"
-    t.float "amount"
+    t.bigint "unit_price_units", null: false
+    t.bigint "amount_units", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

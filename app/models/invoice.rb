@@ -16,9 +16,12 @@
 #  updated_at        :datetime         not null
 #
 class Invoice < ApplicationRecord
+  # CONCERNS
+  include Tokenable
+
   # ASSOCIATIONS
-  has_one :token
   has_many :line_items, dependent: :destroy
+  belongs_to :token
   belongs_to :issuer_contact, class_name: 'Contact', foreign_key: 'issuer_contact_id'
   belongs_to :client_contact, class_name: 'Contact', foreign_key: 'client_contact_id'
   
@@ -27,4 +30,24 @@ class Invoice < ApplicationRecord
 
   # VALIDATIONS
   validates :number, :payment_address, :line_items, presence: true
+
+  # METHODS
+  def subtotal
+    from_units(line_items.sum(:amount_units))
+  end
+
+  def tax
+    subtotal * tax_multiplier
+  end
+
+  def total
+    tax + subtotal
+  end
+
+  private
+
+  def tax_multiplier
+    tax_bps / 10_000
+  end
+
 end
