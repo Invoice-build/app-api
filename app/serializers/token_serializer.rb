@@ -9,7 +9,8 @@
 #  decimals   :integer          default(18)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  standard   :text             default("erc20")
 #
 class TokenSerializer < ActiveModel::Serializer
-  attributes :id, :code, :address, :decimals, :network
+  attributes :id, :code, :address, :decimals, :network, :standard
 end

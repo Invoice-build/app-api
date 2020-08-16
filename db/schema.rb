@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_181254) do
+ActiveRecord::Schema.define(version: 2020_08_14_124818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(version: 2020_07_30_181254) do
     t.text "transactable_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "network", default: "mainnet"
+    t.jsonb "data"
+    t.jsonb "input_data"
     t.index ["reference"], name: "index_eth_transactions_on_reference"
     t.index ["transactable_id"], name: "index_eth_transactions_on_transactable_id"
   end
@@ -66,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_181254) do
     t.text "account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "network", default: "mainnet"
     t.index ["account_id"], name: "index_invoices_on_account_id"
     t.index ["client_contact_id"], name: "index_invoices_on_client_contact_id"
     t.index ["issuer_contact_id"], name: "index_invoices_on_issuer_contact_id"
@@ -90,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_181254) do
     t.integer "decimals", default: 18
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "standard", default: "erc20"
   end
 
 end

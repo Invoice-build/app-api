@@ -9,6 +9,7 @@
 #  decimals   :integer          default(18)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  standard   :text             default("erc20")
 #
 FactoryBot.define do
   factory :token do

@@ -11,6 +11,7 @@
 #  transactable_type :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  network           :text             default("mainnet")
 #
 FactoryBot.define do
   factory :eth_transaction do

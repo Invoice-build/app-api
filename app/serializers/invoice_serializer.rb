@@ -14,11 +14,18 @@
 #  account_id        :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  network           :text             default("mainnet")
 #
 class InvoiceSerializer < ActiveModel::Serializer
   attributes :id, :number, :due_at, :description, :tax_bps, :payment_address,
              :issuer_contact_attributes, :client_contact_attributes, :token_id, 
-             :line_items_attributes, :created_at, :total, :token_address
+             :line_items_attributes, :created_at, :total, :network, :paid, :paid_amount
+  
+  belongs_to :token
+
+  def paid
+    object.paid?
+  end
 
   def due_at
     object.due_at&.strftime("%Y-%m-%d")
@@ -34,10 +41,6 @@ class InvoiceSerializer < ActiveModel::Serializer
 
   def line_items_attributes
     serialize(object.line_items)
-  end
-
-  def token_address
-    object.token.address
   end
 
   private

@@ -1,12 +1,18 @@
 require 'open-uri'
 
 module Etherscan
-  module Client
-    extend self
+  class Client
     attr_reader :url, :api_key
 
-    @url = ENV.fetch('ETHERSCAN_URL') { nil }
-    @api_key = ENV.fetch('ETHERSCAN_API_KEY') { nil }
+    PROTOCOL = 'https://'.freeze
+    DOMAIN = 'etherscan.io'.freeze
+    BASE_PATH = '/api'.freeze
+
+    def initialize(network: 'mainnet')
+      subdomain = network == 'mainnet' ? 'api' : "api-#{network}"
+      @url = "#{PROTOCOL}#{subdomain}.#{DOMAIN}#{BASE_PATH}"
+      @api_key = ENV.fetch('ETHERSCAN_API_KEY') { nil }
+    end
 
     def get_block_number
       proxy('eth_blockNumber').read.then(&method(:parse))

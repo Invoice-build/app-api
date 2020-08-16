@@ -14,10 +14,11 @@
 #  account_id        :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  network           :text             default("mainnet")
 #
 class Invoice < ApplicationRecord
   # CONCERNS
-  include Tokenable
+  include Tokenable, Transactable
 
   # ASSOCIATIONS
   has_many :line_items, dependent: :destroy
@@ -29,7 +30,7 @@ class Invoice < ApplicationRecord
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
   # VALIDATIONS
-  validates :number, :payment_address, :line_items, presence: true
+  validates :number, :payment_address, :line_items, :network, presence: true
 
   # METHODS
   def subtotal
@@ -42,6 +43,14 @@ class Invoice < ApplicationRecord
 
   def total
     tax + subtotal
+  end
+
+  def paid?
+    paid_amount >= total
+  end
+
+  def paid_amount
+    eth_transactions.confirmed.payments.map(&:details).sum{ |x| x[:amount] } || 0
   end
 
   private

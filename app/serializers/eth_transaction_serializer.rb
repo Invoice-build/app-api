@@ -11,9 +11,23 @@
 #  transactable_type :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  network           :text             default("mainnet")
 #
-class EthTransactionSerializer < ActiveModel::Serializer
-  attributes :id, :tx_hash, :reference, :failed_at, :confirmed_at, :confirmed, :failed
+class EthTransactionSerializer < BaseSerializer
+  attributes :id, :tx_hash, :reference, :network, :failed_at, :confirmed_at, 
+             :confirmed, :failed, :status, :details, :token, :finalized, :finalized_at
+
+  def token
+    serialize object.token
+  end
+
+  def finalized_at
+    object.confirmed_at || object.failed_at
+  end
+
+  def finalized
+    object.confirmed_at? || object.failed_at?
+  end
 
   def confirmed
     object.confirmed_at?

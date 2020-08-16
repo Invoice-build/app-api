@@ -1,10 +1,14 @@
 module Etherscan
-  module Service
-    extend self
+  class Service
+    attr_reader :network
+    
+    def initialize(network: 'mainnet')
+      @network = network
+    end
 
     def get_confirmations(txhash)
-      tx = Client.get_transaction_receipt(txhash)
-      bn = Client.get_block_number
+      tx = client.get_transaction_receipt(txhash)
+      bn = client.get_block_number
       return false unless tx
       return false unless tx.dig('blockNumber')
       return false unless tx.dig('status').hex == 1
@@ -13,12 +17,12 @@ module Etherscan
     end
 
     def get_confirmed_at(txhash)
-      tx = Client.get_transaction_receipt(txhash)
+      tx = client.get_transaction_receipt(txhash)
       return false unless tx
       return false unless tx.dig('blockNumber')
       return false unless tx.dig('status').hex == 1
 
-      block = Client.get_block_by_number(tx.dig('blockNumber'))
+      block = client.get_block_by_number(tx.dig('blockNumber'))
 
       Time.at(block.dig('timestamp').hex)
     end
@@ -28,11 +32,16 @@ module Etherscan
       return false unless nonce
       return false unless address
 
-      list = Client.get_list_of_transaction(startblock, address)
+      list = client.get_list_of_transaction(startblock, address)
       return false unless list.any?
 
       list.find { |tx| tx.dig('txreceipt_status').hex == 1 && tx.dig('nonce') == nonce }
     end
+
+    private
     
+    def client
+      @client ||= Client.new(network: network)
+    end
   end
 end

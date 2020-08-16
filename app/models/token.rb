@@ -9,6 +9,7 @@
 #  decimals   :integer          default(18)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  standard   :text             default("erc20")
 #
 class Token < ApplicationRecord
   # ASSOCIATIONS
@@ -16,7 +17,7 @@ class Token < ApplicationRecord
 
   # VALIDATIONS
   validates :code, :address, presence: true
-  validates :address, uniqueness: true 
+  validates :address, uniqueness: true, unless: -> { address == Ethereum::Utils.genesis_address }
 
   # SCOPES
   scope :mainnet, -> { where(network: 'mainnet') }

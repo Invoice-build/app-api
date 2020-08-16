@@ -5,9 +5,21 @@ class InvoicesController < ApplicationController
     render json: invoice, status: :ok
   end
 
-  # POST /invoices || /invoices/:id
-  def store
-    invoice = Invoice.where(id: params[:id]).first_or_initialize
+  # POST /invoices
+  def create
+    invoice = Invoice.new(invoice_params)
+
+    if invoice.save
+      render json: invoice, status: :ok
+    else
+      render json: invoice.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH /invoices/:id
+  # TODO: only allow if signed in
+  def update
+    invoice = Invoice.find(params[:id])
 
     if invoice.update(invoice_params)
       render json: invoice, status: :ok
@@ -26,7 +38,7 @@ class InvoicesController < ApplicationController
     line_items_attributes = [:id, :description, :quantity, :quantity_type, :unit_price, :_destroy]
 
     params.require(:invoice).permit(
-      :number, :due_at, :description, :tax_bps, :payment_address, :token_id,
+      :number, :due_at, :description, :tax_bps, :payment_address, :token_id, :network,
       issuer_contact_attributes: contact_attributes,
       client_contact_attributes: contact_attributes,
       line_items_attributes: line_items_attributes

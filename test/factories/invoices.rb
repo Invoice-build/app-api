@@ -14,6 +14,7 @@
 #  account_id        :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  network           :text             default("mainnet")
 #
 FactoryBot.define do
   factory :invoice do
