@@ -1,32 +1,22 @@
-FROM ruby:2.7.1-alpine as builder
+FROM ruby:2.7.1-alpine
 
 ENV RAILS_ENV production
 ENV RACK_ENV production
-
-RUN apk add --no-cache --update build-base \
-                                postgresql-dev \
-                                && rm -rf /var/cache/apk/*
-
-RUN mkdir -p /app
-WORKDIR /app
-
-COPY Gemfile Gemfile.lock /app/
-RUN bundle install && rm -rf /usr/local/bundle/bundler/gems/*/.git \
-                             /usr/local/bundle/cache/
-
-FROM ruby:2.7.1-alpine
 
 RUN apk add --no-cache --update postgresql-dev \
                                 tzdata \
                                 && rm -rf /var/cache/apk/*
 
-RUN addgroup -S deploy && adduser -S deploy -G deploy
-USER deploy
-RUN mkdir -p /home/deploy/app
-WORKDIR /home/deploy/app
+# We specify everything will happen within the /app folder inside the container
+WORKDIR /app
+# We copy these files from our current application to the /app container
+COPY Gemfile Gemfile.lock ./
+# We install all the dependencies
+RUN bundle install
+# We copy all the files from our current application to the /app container
+COPY . .
 
-COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-COPY --chown=deploy:deploy . /home/deploy/app/
+RUN mkdir -p ./tmp/storage && mkdir -p ./tmp/pids && touch ./tmp/pids/server.pid
 
-EXPOSE 3000
+# Execute the Procfile
 CMD ["bin/run-dev.sh"]
