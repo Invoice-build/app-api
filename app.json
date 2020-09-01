@@ -1,0 +1,8 @@
+{
+  "name": "invoice-build-api",
+  "scripts": {
+    "dokku": {
+      "postdeploy": "bundle exec rake db:migrate"
+    }
+  }
+}
