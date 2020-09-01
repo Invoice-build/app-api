@@ -2,16 +2,19 @@
 #
 # Table name: eth_transactions
 #
-#  id                :uuid             not null, primary key
-#  tx_hash           :text
-#  reference         :text
-#  confirmed_at      :datetime
-#  failed_at         :datetime
-#  transactable_id   :uuid
-#  transactable_type :text
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  network           :text             default("mainnet")
+#  id                 :uuid             not null, primary key
+#  tx_hash            :text
+#  reference          :text
+#  confirmed_at       :datetime
+#  failed_at          :datetime
+#  transactable_id    :uuid
+#  transactable_type  :text
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  network            :text             default("mainnet")
+#  data               :jsonb
+#  input_data         :jsonb
+#  transactable_valid :boolean          default(FALSE)
 #
 class EthTransaction < ApplicationRecord
     # CALLBACKS
@@ -25,6 +28,7 @@ class EthTransaction < ApplicationRecord
 
     # SCOPES
     scope :confirmed, -> { where.not(confirmed_at: nil) }
+    scope :valid, -> { where(transactable_valid: true) }
     scope :payments, -> { where(reference: 'payment') }
 
     def status
@@ -34,16 +38,16 @@ class EthTransaction < ApplicationRecord
     end
 
     def native?
-      token.standard == 'native'
+      details&.native
     end
 
     def token
-      transactable&.token
+      @token ||= Token.where(address: details[:token_address], network: network).take
     end
 
     def details
-      return unless data
-      Ethereum::Transaction::Details.new(self).call
+      return {} unless data
+      @details ||= Ethereum::Transaction::Details.new(self).call
     end
   
     private

@@ -1,18 +1,17 @@
 module Ethereum
   module Transaction
-    class Validator
-      attr_reader :eth_transaction
-      
-      def initialize(eth_transaction)
-        @eth_transaction = eth_transaction
-      end
+    class Validator < SimpleDelegator
 
       def call
-        valid_asset?
+        valid_token? && valid_network?
       end
 
-      def valid_asset
-        
+      def valid_token?
+        token == transactable&.token
+      end
+
+      def valid_network?
+        network == transactable&.network
       end
     end
   end

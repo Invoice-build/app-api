@@ -15,6 +15,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  network           :text             default("mainnet")
+#  password_digest   :text
 #
 require 'test_helper'
 

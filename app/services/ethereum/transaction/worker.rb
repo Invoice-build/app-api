@@ -1,6 +1,7 @@
 module Ethereum
   module Transaction
     class Worker < ApplicationJob
+      retry_on ActiveRecord::RecordNotFound
       queue_as :default
   
       def perform(event_name, eth_transaction_id:, **params)
@@ -8,6 +9,8 @@ module Ethereum
           case event_name.to_sym
           when :fetch_data
             service.fetch_data
+          when :validate
+            service.validate
           end
         end
       end

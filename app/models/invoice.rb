@@ -15,9 +15,11 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  network           :text             default("mainnet")
+#  password_digest   :text
 #
 class Invoice < ApplicationRecord
   # CONCERNS
+  has_secure_password validations: false
   include Tokenable, Transactable
 
   # ASSOCIATIONS
@@ -50,7 +52,7 @@ class Invoice < ApplicationRecord
   end
 
   def paid_amount
-    eth_transactions.confirmed.payments.map(&:details).sum{ |x| x[:amount] } || 0
+    eth_transactions.confirmed.valid.payments.map(&:details).sum{ |x| x[:amount] } || 0
   end
 
   private
