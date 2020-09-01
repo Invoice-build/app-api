@@ -1,11 +1,7 @@
-FROM ruby:2.7.1-alpine
+FROM ruby:2.7.1
 
 ENV RAILS_ENV production
 ENV RACK_ENV production
-
-RUN apk add --no-cache --update postgresql-dev \
-                                tzdata \
-                                && rm -rf /var/cache/apk/*
 
 # We specify everything will happen within the /app folder inside the container
 WORKDIR /app
