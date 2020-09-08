@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   end
 
   def live
-    render json: Time.now.utc
+    render json: { time: Time.now.utc, app: 'invoice.build' }
   end
 
   def serialize(resource)
