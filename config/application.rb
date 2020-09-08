@@ -35,6 +35,6 @@ module App
     config.api_only = true
 
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_ib_session', domain: (ENV['DOMAIN'] || :all), same_site: :strict
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_invoice_build_session', domain: (ENV['DOMAIN'] || :all)
   end
 end
