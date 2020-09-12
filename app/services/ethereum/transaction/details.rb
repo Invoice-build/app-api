@@ -41,7 +41,7 @@ module Ethereum
         @token_address ||= if is_native?
           genesis_address
         else
-          _data.to.downcase
+          _data.to
         end
       end
   

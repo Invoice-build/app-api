@@ -5,7 +5,7 @@ module Ethereum
       
       def initialize(eth_transaction, token_address)
         @eth_transaction ||= eth_transaction
-        @token ||= Token.find_by(address: token_address)
+        @token ||= Token.where('lower(address) = ?', token_address.downcase).take
       end
 
       def call
