@@ -42,7 +42,7 @@ class EthTransaction < ApplicationRecord
     end
 
     def token
-      @token ||= Token.where(address: details[:token_address], network: network).take
+      @token ||= Token.where('lower(address) = ? AND network = ?', details[:token_address].downcase, network).take
     end
 
     def details
