@@ -15,7 +15,7 @@ module Ethereum
         input_data = if native_tx?(data)
           nil
         else
-          token = Token.where('lower(address) = ?', data['to'].downcase)
+          token = Token.where('lower(address) = ?', data['to'].downcase).take
           eth_utils_client.get("#{token.standard}/decode/#{data['input']}") 
         end
         
