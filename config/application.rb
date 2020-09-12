@@ -34,6 +34,8 @@ module App
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.active_job.queue_adapter = :async
+
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: '_invoice_build_session', domain: (ENV['DOMAIN'] || :all)
   end
