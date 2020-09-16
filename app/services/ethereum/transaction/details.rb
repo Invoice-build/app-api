@@ -29,7 +29,11 @@ module Ethereum
         @amout ||= if is_native?
           value
         else
-          _input_data.amount
+          if _token.decimals != 18
+            _input_data.amount * 10 ** (18 - _token.decimals)
+          else
+            _input_data.amount
+          end
         end
       end
 
@@ -53,6 +57,10 @@ module Ethereum
 
       def _input_data
         @_input_data ||= OpenStruct.new(InputData.new(self, token_address).call)
+      end
+
+      def _token
+        @_token ||= Token.where('lower(address) = ? AND network = ?', token_address&.downcase, network).take
       end
     end
   end
