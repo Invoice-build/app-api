@@ -29,7 +29,7 @@ module Ethereum
         @amout ||= if is_native?
           value
         else
-          if token.decimals !== 18
+          if token.decimals != 18
             _input_data.amount * 10 ** (18 - token.decimals)
           else
             _input_data.amount
