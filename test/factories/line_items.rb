@@ -14,9 +14,9 @@
 #
 FactoryBot.define do
   factory :line_item do
-    description { "Item details" }
+    description { 'Item details' }
     quantity { 1 }
-    quantity_type { "month" }
+    quantity_type { 'month' }
     unit_price { 5000 }
   end
 end

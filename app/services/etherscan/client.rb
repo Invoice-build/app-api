@@ -34,11 +34,11 @@ module Etherscan
       account('txlist', { address: address, startblock: startblock, endblock: 99999999 }).read.then(&method(:parse))
     end
 
-    def account(method, params={})
+    def account(method, params = {})
       URI.parse(url + "?module=account&action=#{method}&#{params.to_query}&apiKey=#{api_key}")
     end
 
-    def proxy(method, params={})
+    def proxy(method, params = {})
       URI.parse(url + "?module=proxy&action=#{method}&#{params.to_query}&apiKey=#{api_key}")
     end
 
@@ -50,6 +50,5 @@ module Etherscan
         raise response.status[1].to_s
       end
     end
-    
   end
 end

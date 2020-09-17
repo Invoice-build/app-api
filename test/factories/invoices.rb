@@ -19,10 +19,10 @@
 #
 FactoryBot.define do
   factory :invoice do
-    number { "001" }
+    number { '001' }
     due_at { Time.now + 30.days }
     description { nil }
     tax_bps { 1000 }
-    payment_address { "0xBeE21365A462b8df12CFE9ab7C40f1BB5f5ED495" }
+    payment_address { '0xBeE21365A462b8df12CFE9ab7C40f1BB5f5ED495' }
   end
 end

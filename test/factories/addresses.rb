@@ -16,11 +16,11 @@
 #
 FactoryBot.define do
   factory :address do
-    address_1 { "123 Example Street" }
-    address_2 { "Village" }
-    district { "District" }
-    city { "Metropolis" }
-    postcode { "MET123" }
-    country { "GB" }
+    address_1 { '123 Example Street' }
+    address_2 { 'Village' }
+    district { 'District' }
+    city { 'Metropolis' }
+    postcode { 'MET123' }
+    country { 'GB' }
   end
 end

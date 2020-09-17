@@ -13,9 +13,9 @@
 #
 FactoryBot.define do
   factory :token do
-    code { "ETH" }
-    address { "0x0000000000000000000000000000000000000000" }
+    code { 'ETH' }
+    address { '0x0000000000000000000000000000000000000000' }
     decimals { 18 }
-    network { "mainnet" }
+    network { 'mainnet' }
   end
 end

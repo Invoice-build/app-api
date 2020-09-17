@@ -1,7 +1,6 @@
 module Ethereum
   module Transaction
     class Validator < SimpleDelegator
-
       def call
         valid_token? && valid_network?
       end

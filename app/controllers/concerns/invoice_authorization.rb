@@ -5,6 +5,7 @@ module InvoiceAuthorization
     def authenticated_invoice?(invoice)
       if invoice.password_digest
         return true if password_provided?
+
         false
       else
         true
@@ -12,9 +13,7 @@ module InvoiceAuthorization
     end
 
     def password_provided?
-      if !decoded_invoice_token.empty?
-        return Invoice.find_by(id: decoded_invoice_token[0]['invoice_id'])
-      end
+      return Invoice.find_by(id: decoded_invoice_token[0]['invoice_id']) unless decoded_invoice_token.empty?
     end
 
     def invoice_session_token(invoice)

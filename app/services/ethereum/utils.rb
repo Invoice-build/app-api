@@ -2,7 +2,7 @@ module Ethereum
   module Utils
     extend self
 
-    def from_wei value
+    def from_wei(value)
       value / 1e18
     end
 

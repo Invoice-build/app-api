@@ -1,6 +1,6 @@
 module Tokenable
   extend ActiveSupport::Concern
-  
+
   def from_units(value)
     value / 1e6
   end
@@ -12,11 +12,11 @@ module Tokenable
   class_methods do
     def tokenize(attribute, as:, validate: true)
       if validate
-        self.validates as.to_sym, presence: true
-        self.validates as.to_sym, numericality: { less_than: 100_000_000, greater_than: 0 }
+        validates as.to_sym, presence: true
+        validates as.to_sym, numericality: { less_than: 100_000_000, greater_than: 0 }
       end
 
-      self.class_eval do
+      class_eval do
         define_method(as) do
           self[attribute] ? from_units(self[attribute]) : nil
         end

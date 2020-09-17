@@ -1,7 +1,7 @@
 module Etherscan
   class Service
     attr_reader :network
-    
+
     def initialize(network: 'mainnet')
       @network = network
     end
@@ -39,7 +39,7 @@ module Etherscan
     end
 
     private
-    
+
     def client
       @client ||= Client.new(network: network)
     end

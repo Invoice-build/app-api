@@ -22,5 +22,5 @@ class Token < ApplicationRecord
   # SCOPES
   scope :mainnet, -> { where(network: 'mainnet') }
   scope :ropsten, -> { where(network: 'ropsten') }
-  scope :by_network, -> (network) { where(network: network) }
+  scope :by_network, ->(network) { where(network: network) }
 end

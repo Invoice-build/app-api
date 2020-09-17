@@ -51,9 +51,9 @@ class InvoicesController < ApplicationController
   def invoice_params
     contact_attributes = [
       :id, :business_name, :contact_name, :business_reg_number, :tax_number, :email, :phone,
-      address_attributes: [:id, :address_1, :address_2, :district, :city, :postcode, :country]
+      { address_attributes: %i[id address_1 address_2 district city postcode country] }
     ]
-    line_items_attributes = [:id, :description, :quantity, :quantity_type, :unit_price, :_destroy]
+    line_items_attributes = %i[id description quantity quantity_type unit_price _destroy]
 
     params.require(:invoice).permit(
       :number, :due_at, :description, :tax_bps, :payment_address, :token_id, :network, :password,

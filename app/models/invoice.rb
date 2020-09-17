@@ -20,14 +20,15 @@
 class Invoice < ApplicationRecord
   # CONCERNS
   has_secure_password validations: false
-  include Tokenable, Transactable
+  include Transactable
+  include Tokenable
 
   # ASSOCIATIONS
   has_many :line_items, dependent: :destroy
   belongs_to :token
   belongs_to :issuer_contact, class_name: 'Contact', foreign_key: 'issuer_contact_id'
   belongs_to :client_contact, class_name: 'Contact', foreign_key: 'client_contact_id'
-  
+
   accepts_nested_attributes_for :issuer_contact, :client_contact
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
@@ -52,7 +53,7 @@ class Invoice < ApplicationRecord
   end
 
   def paid_amount
-    eth_transactions.confirmed.valid.payments.map(&:details).sum{ |x| x[:amount] } || 0
+    eth_transactions.confirmed.valid.payments.map(&:details).sum { |x| x[:amount] } || 0
   end
 
   private
@@ -60,5 +61,4 @@ class Invoice < ApplicationRecord
   def tax_multiplier
     tax_bps / 10_000
   end
-
 end

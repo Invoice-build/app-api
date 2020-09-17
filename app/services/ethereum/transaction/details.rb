@@ -15,9 +15,9 @@ module Ethereum
 
       def recipient
         @recipient ||= if is_native?
-          _data.to
-        else
-          _input_data.recipient
+                         _data.to
+                       else
+                         _input_data.recipient
         end
       end
 
@@ -27,13 +27,13 @@ module Ethereum
 
       def amount
         @amout ||= if is_native?
-          value
-        else
-          if _token.decimals != 18
-            _input_data.amount * 10 ** (18 - _token.decimals)
-          else
-            _input_data.amount
-          end
+                     value
+                   else
+                     if _token.decimals != 18
+                       _input_data.amount * 10**(18 - _token.decimals)
+                     else
+                       _input_data.amount
+                     end
         end
       end
 
@@ -43,14 +43,14 @@ module Ethereum
 
       def token_address
         @token_address ||= if is_native?
-          genesis_address
-        else
-          _data.to
+                             genesis_address
+                           else
+                             _data.to
         end
       end
-  
+
       private
-  
+
       def _data
         @_data ||= OpenStruct.new(data)
       end

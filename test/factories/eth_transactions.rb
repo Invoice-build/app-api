@@ -18,11 +18,11 @@
 #
 FactoryBot.define do
   factory :eth_transaction do
-    tx_hash { "MyText" }
-    reference { "MyText" }
-    confirmed_at { "2020-07-29 18:34:06" }
-    failed_at { "2020-07-29 18:34:06" }
-    transactable_id { "" }
-    transactable_type { "MyText" }
+    tx_hash { 'MyText' }
+    reference { 'MyText' }
+    confirmed_at { '2020-07-29 18:34:06' }
+    failed_at { '2020-07-29 18:34:06' }
+    transactable_id { '' }
+    transactable_type { 'MyText' }
   end
 end

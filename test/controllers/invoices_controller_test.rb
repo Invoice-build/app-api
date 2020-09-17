@@ -36,7 +36,7 @@ class InvoicesControllerTest < ActionDispatch::IntegrationTest
     #         attributes_for(:line_item, description: 'Item C')
     #       ]
     #     )
-  
+
     #     assert_changes -> { invoice.reload; invoice.number } do
     #       post store_invoices_url(invoice.id), params: { invoice: { number: '002' } }
     #       assert_response :success

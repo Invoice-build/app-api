@@ -3,8 +3,8 @@ module Ethereum
     class Worker < ApplicationJob
       retry_on ActiveRecord::RecordNotFound
       queue_as :default
-  
-      def perform(event_name, eth_transaction_id:, **params)
+
+      def perform(event_name, eth_transaction_id:, **_params)
         with_service(eth_transaction_id) do |service|
           case event_name.to_sym
           when :fetch_data

@@ -14,11 +14,11 @@
 #
 FactoryBot.define do
   factory :contact do
-    business_name { "Remotely Digital Ltd" }
-    contact_name { "Gareth Fuller" }
-    business_reg_number { "123456" }
-    tax_number { "123456" }
-    email { "gareth@remotely.digital" }
-    phone { "+447701072712" }
+    business_name { 'Remotely Digital Ltd' }
+    contact_name { 'Gareth Fuller' }
+    business_reg_number { '123456' }
+    tax_number { '123456' }
+    email { 'gareth@remotely.digital' }
+    phone { '+447701072712' }
   end
 end

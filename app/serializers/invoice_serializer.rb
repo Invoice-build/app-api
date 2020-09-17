@@ -19,9 +19,9 @@
 #
 class InvoiceSerializer < ActiveModel::Serializer
   attributes :id, :number, :due_at, :description, :tax_bps, :payment_address,
-             :issuer_contact_attributes, :client_contact_attributes, :token_id, 
+             :issuer_contact_attributes, :client_contact_attributes, :token_id,
              :line_items_attributes, :created_at, :total, :network, :paid, :paid_amount
-  
+
   belongs_to :token
 
   def paid
@@ -29,7 +29,7 @@ class InvoiceSerializer < ActiveModel::Serializer
   end
 
   def due_at
-    object.due_at&.strftime("%Y-%m-%d")
+    object.due_at&.strftime('%Y-%m-%d')
   end
 
   def issuer_contact_attributes

@@ -17,46 +17,48 @@
 #  transactable_valid :boolean          default(FALSE)
 #
 class EthTransaction < ApplicationRecord
-    # CALLBACKS
-    after_create :poll_for_confirmation, :fetch_data
+  # CALLBACKS
+  after_create :poll_for_confirmation, :fetch_data
 
-    # ASSOCIATIONS
-    belongs_to :transactable, polymorphic: true
-  
-    # VALIDATIONS
-    validates :tx_hash, :reference, :network, :transactable_id, :transactable_type, presence: true
+  # ASSOCIATIONS
+  belongs_to :transactable, polymorphic: true
 
-    # SCOPES
-    scope :confirmed, -> { where.not(confirmed_at: nil) }
-    scope :valid, -> { where(transactable_valid: true) }
-    scope :payments, -> { where(reference: 'payment') }
+  # VALIDATIONS
+  validates :tx_hash, :reference, :network, :transactable_id, :transactable_type, presence: true
 
-    def status
-      return 'failed' if failed_at?
-      return 'confirmed' if confirmed_at?
-      return 'pending'
-    end
+  # SCOPES
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :valid, -> { where(transactable_valid: true) }
+  scope :payments, -> { where(reference: 'payment') }
 
-    def native?
-      details&.native
-    end
+  def status
+    return 'failed' if failed_at?
+    return 'confirmed' if confirmed_at?
 
-    def token
-      @token ||= Token.where('lower(address) = ? AND network = ?', details[:token_address]&.downcase, network).take
-    end
+    'pending'
+  end
 
-    def details
-      return {} unless data
-      @details ||= Ethereum::Transaction::Details.new(self).call
-    end
-  
-    private
-  
-    def poll_for_confirmation
-      PollForConfirmationJob.perform_later(self.id)
-    end
+  def native?
+    details&.native
+  end
 
-    def fetch_data
-      Ethereum::Transaction::Worker.perform_later('fetch_data', eth_transaction_id: self.id)
-    end
+  def token
+    @token ||= Token.where('lower(address) = ? AND network = ?', details[:token_address]&.downcase, network).take
+  end
+
+  def details
+    return {} unless data
+
+    @details ||= Ethereum::Transaction::Details.new(self).call
+  end
+
+  private
+
+  def poll_for_confirmation
+    PollForConfirmationJob.perform_later(id)
+  end
+
+  def fetch_data
+    Ethereum::Transaction::Worker.perform_later('fetch_data', eth_transaction_id: id)
+  end
 end

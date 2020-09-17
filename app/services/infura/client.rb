@@ -36,7 +36,7 @@ module Infura
         id: 1
       }
     end
-    
+
     def headers
       {
         'User-Agent' => 'invoice.build',

@@ -31,6 +31,6 @@ class LineItem < ApplicationRecord
   private
 
   def set_amount
-    self.amount = self.unit_price * self.quantity
+    self.amount = unit_price * quantity
   end
 end

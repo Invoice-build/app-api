@@ -19,13 +19,13 @@ class PollForConfirmationJob < ApplicationJob
         Ethereum::Transaction::Worker.perform_later('fetch_data', eth_transaction_id: resource.id)
       else
         PollForConfirmationJob.set(wait: 10.seconds).perform_later(resource.id)
-        return
+        nil
       end
     else
       if resource.updated_at > 5.minutes.ago
         puts "Tx #{resource.tx_hash} probably not available via Etherscan API yet"
         PollForConfirmationJob.set(wait: 10.seconds).perform_later(resource.id)
-        return
+        nil
       else
         puts "Tx #{resource.tx_hash} failed!"
         resource.update!(failed_at: Time.now)

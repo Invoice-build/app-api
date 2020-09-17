@@ -17,7 +17,7 @@
 #  transactable_valid :boolean          default(FALSE)
 #
 class EthTransactionSerializer < BaseSerializer
-  attributes :id, :tx_hash, :reference, :network, :failed_at, :confirmed_at, 
+  attributes :id, :tx_hash, :reference, :network, :failed_at, :confirmed_at,
              :confirmed, :failed, :status, :details, :token, :finalized, :finalized_at,
              :transactable_valid
 

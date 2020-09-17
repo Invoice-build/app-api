@@ -1,0 +1,66 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
+    - 'app/models/admin/kyc_user.rb'
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+Style/NumericLiterals:
+  Enabled: false
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+Layout/LineLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+Style/ExponentialNotation:
+  Enabled: true
+Style/Documentation:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Style/FormatStringToken:
+  Enabled: false
+Naming/PredicateName:
+  Exclude:
+    - 'app/serializers/**/*'
+Style/MultilineBlockChain:
+  Exclude:
+    - 'app/services/solaris/**/*'
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'lib/active_storage/**/*'
+Style/Semicolon:
+  Exclude:
+    - 'test/controllers/**/*'
+Style/MissingRespondToMissing:
+  Enabled: false
+Lint/MissingSuper:
+  Enabled: false
+Style/ModuleFunction:
+  Exclude:
+    - 'app/services/distribution/client.rb'
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+Style/SingleArgumentDig:
+  Enabled: false
+Naming/AccessorMethodName:
+  Enabled: false

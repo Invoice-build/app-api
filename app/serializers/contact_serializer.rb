@@ -15,7 +15,7 @@
 class ContactSerializer < ActiveModel::Serializer
   attributes :id, :business_name, :contact_name, :business_reg_number, :tax_number,
              :email, :phone, :address_attributes
-  
+
   def address_attributes
     serialize(object.address)
   end
