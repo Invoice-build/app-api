@@ -10,11 +10,9 @@ dev_defaults: &dev_defaults
 
 development:
   <<: [*defaults, *dev_defaults]
-  database: invoice_build_development
   
 test:
-  <<: [*defaults, *dev_defaults]
-  database: invoice_build_test
+  <<: [*defaults]
 
 production:
   <<: *defaults
