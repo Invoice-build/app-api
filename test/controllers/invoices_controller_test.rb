@@ -20,11 +20,12 @@ class InvoicesControllerTest < ActionDispatch::IntegrationTest
       )
 
       assert_difference -> { Contact.count } => 2, -> { LineItem.count } => 3 do
-        post store_invoices_url, params: { invoice: invoice_params }
+        post invoices_url, params: { invoice: invoice_params }
         assert_response :success
       end
     end
 
+    # NOTE: Updating not allowed yet, need to add authentication first
     # describe 'updates' do
     #   it 'updates existing invoice' do
     #     invoice = create(:invoice,
