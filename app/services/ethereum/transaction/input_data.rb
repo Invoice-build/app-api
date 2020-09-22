@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Ethereum
   module Transaction
     class InputData
       attr_reader :eth_transaction, :token
 
       def initialize(eth_transaction, token_address)
-        @eth_transaction ||= eth_transaction
-        @token ||= Token.where('lower(address) = ?', token_address.downcase).take
+        @eth_transaction = eth_transaction
+        @token = Token.where('lower(address) = ?', token_address.downcase).take
       end
 
       def call

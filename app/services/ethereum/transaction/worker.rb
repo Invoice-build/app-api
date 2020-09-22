@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ethereum
   module Transaction
     class Worker < ApplicationJob

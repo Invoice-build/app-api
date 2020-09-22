@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 
 module Etherscan
   class Client
     attr_reader :url, :api_key
 
-    PROTOCOL = 'https://'.freeze
-    DOMAIN = 'etherscan.io'.freeze
-    BASE_PATH = '/api'.freeze
+    PROTOCOL = 'https://'
+    DOMAIN = 'etherscan.io'
+    BASE_PATH = '/api'
 
     def initialize(network: 'mainnet')
       subdomain = network == 'mainnet' ? 'api' : "api-#{network}"
       @url = "#{PROTOCOL}#{subdomain}.#{DOMAIN}#{BASE_PATH}"
-      @api_key = ENV.fetch('ETHERSCAN_API_KEY') { nil }
+      @api_key = ENV.fetch('ETHERSCAN_API_KEY', nil)
     end
 
     def get_block_number

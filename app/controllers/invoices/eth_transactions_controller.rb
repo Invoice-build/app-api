@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Invoices
   class EthTransactionsController < ApplicationController
     # GET /invoices/:invoice_id/eth_transactions/:id
