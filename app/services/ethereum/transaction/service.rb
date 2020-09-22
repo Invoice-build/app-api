@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ethereum
   module Transaction
     class Service
@@ -17,7 +19,7 @@ module Ethereum
                      else
                        token = Token.where('lower(address) = ?', data['to'].downcase).take
                        eth_utils_client.get("#{token.standard}/decode/#{data['input']}")
-        end
+                     end
 
         eth_transaction.update(data: data, input_data: input_data)
         Worker.perform_later('validate', eth_transaction_id: eth_transaction.id)
@@ -30,7 +32,7 @@ module Ethereum
       private
 
       def native_tx?(data)
-        data['input'] == '0x' || from_wei(Integer(data['value'])) > 0
+        data['input'] == '0x' || from_wei(Integer(data['value'])).positive?
       end
 
       def network_client

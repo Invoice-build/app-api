@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InvoiceAuthorization
   extend ActiveSupport::Concern
 
@@ -22,7 +24,7 @@ module InvoiceAuthorization
     end
 
     def decoded_invoice_token
-      if token = request.headers['Invoice-Authorization']
+      if (token = request.headers['Invoice-Authorization'])
         begin
           JWT.decode(token, ENV['JWT_SECRET'], true, { algorithm: 'HS256' })
         rescue JWT::ExpiredSignature

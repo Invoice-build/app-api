@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :seed do
   task tokens: :environment do
     Token.where(

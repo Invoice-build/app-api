@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ethereum
   module Transaction
     class Details < SimpleDelegator
@@ -8,17 +10,17 @@ module Ethereum
           from: _data.from,
           to: recipient,
           amount: amount,
-          native: is_native?,
+          native: native?,
           token_address: token_address
         }
       end
 
       def recipient
-        @recipient ||= if is_native?
+        @recipient ||= if native?
                          _data.to
                        else
                          _input_data.recipient
-        end
+                       end
       end
 
       def value
@@ -26,27 +28,25 @@ module Ethereum
       end
 
       def amount
-        @amout ||= if is_native?
-                     value
-                   else
-                     if _token.decimals != 18
-                       _input_data.amount * 10**(18 - _token.decimals)
-                     else
-                       _input_data.amount
-                     end
-        end
+        @amount ||= if native?
+                      value
+                    elsif _token.decimals != 18
+                      _input_data.amount * 10**(18 - _token.decimals)
+                    else
+                      _input_data.amount
+                    end
       end
 
-      def is_native?
-        _data.input == '0x' || value > 0
+      def native?
+        _data.input == '0x' || value.positive?
       end
 
       def token_address
-        @token_address ||= if is_native?
+        @token_address ||= if native?
                              genesis_address
                            else
                              _data.to
-        end
+                           end
       end
 
       private

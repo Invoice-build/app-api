@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 
 module EthUtilsApp
@@ -5,12 +7,12 @@ module EthUtilsApp
     attr_reader :host, :port
 
     def initialize
-      @host = ENV.fetch('ETH_UTILS_API_HOST') { 'eth_utils_app' }
-      @port = ENV.fetch('ETH_UTILS_API_PORT') { 3000 }
+      @host = ENV.fetch('ETH_UTILS_API_HOST', 'eth_utils_app')
+      @port = ENV.fetch('ETH_UTILS_API_PORT', 3000)
     end
 
     def get(endpoint)
-      request = Net::HTTP::Get.new('/' + endpoint, headers)
+      request = Net::HTTP::Get.new("/#{endpoint}", headers)
       response = http.request(request)
       handle(response)
     end

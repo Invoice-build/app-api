@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TokensController < ApplicationController
   # GET /tokens
   def index

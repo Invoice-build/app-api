@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Ethereum
   module Utils
-    extend self
+    module_function
 
     def from_wei(value)
       value / 1e18

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tokenable
   extend ActiveSupport::Concern
 
@@ -10,10 +12,10 @@ module Tokenable
   end
 
   class_methods do
-    def tokenize(attribute, as:, validate: true)
+    def tokenize(attribute, name:, validate: true)
       if validate
-        validates as.to_sym, presence: true
-        validates as.to_sym, numericality: { less_than: 100_000_000, greater_than: 0 }
+        validates name.to_sym, presence: true
+        validates name.to_sym, numericality: { less_than: 100_000_000, greater_than: 0 }
       end
 
       class_eval do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'infura/api/transactions'
 
@@ -7,13 +9,13 @@ module Infura
 
     attr_reader :api_key, :project_id, :project_secret, :host, :base_path, :debug
 
-    DOMAIN = 'infura.io'.freeze
-    VERSION = 'v3'.freeze
+    DOMAIN = 'infura.io'
+    VERSION = 'v3'
 
     def initialize(network: 'mainnet')
-      @api_key        = ENV.fetch('INFURA_API_SECRET') { nil }
-      @project_id     = ENV.fetch('INFURA_PROJECT_ID') { '' }
-      @project_secret = ENV.fetch('INFURA_PROJECT_SECRET') { '' }
+      @api_key        = ENV.fetch('INFURA_API_SECRET', nil)
+      @project_id     = ENV.fetch('INFURA_PROJECT_ID', '')
+      @project_secret = ENV.fetch('INFURA_PROJECT_SECRET', '')
       @host           = "#{network}.#{DOMAIN}"
       @base_path      = "/#{VERSION}/#{project_id}"
       @debug          = true
