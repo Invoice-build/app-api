@@ -6,6 +6,7 @@ module InvoiceAuthorization
   included do
     def authenticated_invoice?(invoice)
       return true unless invoice.password_digest
+
       password_has_been_provided?
     end
 
@@ -18,6 +19,7 @@ module InvoiceAuthorization
 
     def password_has_been_provided?
       return false if decoded_invoice_token.empty?
+
       Invoice.find_by(id: decoded_invoice_token[0]['invoice_id']) || false
     end
 
