@@ -18,7 +18,7 @@ module Infura
       @project_secret = ENV.fetch('INFURA_PROJECT_SECRET', '')
       @host           = "#{network}.#{DOMAIN}"
       @base_path      = "/#{VERSION}/#{project_id}"
-      @debug          = true
+      @debug          = false
     end
 
     def post(method:, params: nil)

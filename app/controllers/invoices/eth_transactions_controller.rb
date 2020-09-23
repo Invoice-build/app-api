@@ -4,8 +4,8 @@ module Invoices
   class EthTransactionsController < ApplicationController
     # GET /invoices/:invoice_id/eth_transactions/:id
     def show
-      transaction = invoice.eth_transactions.find(params[:id])
-      render json: transaction, status: :ok
+      eth_transaction = invoice.eth_transactions.find(params[:id])
+      render json: eth_transaction, status: :ok
     end
 
     # GET /invoices/:invoice_id/eth_transactions
@@ -15,12 +15,12 @@ module Invoices
 
     # POST /invoices/:invoice_id/eth_transactions
     def create
-      tx = invoice.eth_transactions.build(eth_transaction_params)
+      eth_transaction = invoice.eth_transactions.build(eth_transaction_params)
 
-      if tx.save
-        render json: tx, status: :created
+      if eth_transaction.save
+        render json: eth_transaction, status: :created
       else
-        render json: tx.errors, status: :unprocessable_entity
+        render json: eth_transaction.errors, status: :unprocessable_entity
       end
     end
 

@@ -21,12 +21,12 @@ module Ethereum
                        eth_utils_client.get("#{token.standard}/decode/#{data['input']}")
                      end
 
-        eth_transaction.update(data: data, input_data: input_data)
+        eth_transaction.update!(data: data, input_data: input_data)
         Worker.perform_later('validate', eth_transaction_id: eth_transaction.id)
       end
 
       def validate
-        eth_transaction.update(transactable_valid: Validator.new(eth_transaction).call)
+        eth_transaction.update!(transactable_valid: Validator.new(eth_transaction).call)
       end
 
       private
