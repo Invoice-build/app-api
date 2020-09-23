@@ -5,22 +5,20 @@ module InvoiceAuthorization
 
   included do
     def authenticated_invoice?(invoice)
-      if invoice.password_digest
-        return true if password_provided?
-
-        false
-      else
-        true
-      end
-    end
-
-    def password_provided?
-      return Invoice.find_by(id: decoded_invoice_token[0]['invoice_id']) unless decoded_invoice_token.empty?
+      return true unless invoice.password_digest
+      password_has_been_provided?
     end
 
     def invoice_session_token(invoice)
       expires = Time.now.to_i + 30.days.to_i
       JWT.encode({ invoice_id: invoice.id, exp: expires }, ENV['JWT_SECRET'], 'HS256')
+    end
+
+    private
+
+    def password_has_been_provided?
+      return false if decoded_invoice_token.empty?
+      Invoice.find_by(id: decoded_invoice_token[0]['invoice_id']) || false
     end
 
     def decoded_invoice_token
