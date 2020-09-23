@@ -1,6 +1,5 @@
 env:
   DB_URL: postgresql://postgres:postgres@localhost:5432/test
-  POSTGRES_PASSWORD: postgres
   RAILS_ENV: test
   RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY_TEST }}
 
@@ -25,6 +24,8 @@ jobs:
     services:
       postgres:
         image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: >-
