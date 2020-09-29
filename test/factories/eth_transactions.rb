@@ -20,11 +20,21 @@
 #
 FactoryBot.define do
   factory :eth_transaction do
-    tx_hash { 'MyText' }
-    reference { 'MyText' }
-    confirmed_at { '2020-07-29 18:34:06' }
-    failed_at { '2020-07-29 18:34:06' }
-    transactable_id { '' }
-    transactable_type { 'MyText' }
+    tx_hash { '0x12345' }
+    reference { 'payment' }
+    confirmed_at { nil }
+    failed_at { nil }
+    data { JSON.parse(read_fixture_file('files/eth_tx_data.json')) }
+    transactable_type { 'Invoice' }
+
+    trait :confirmed do
+      confirmed_at { Time.now }
+      transactable_valid { true }
+    end
+
+    trait :erc20 do
+      data { JSON.parse(read_fixture_file('files/erc20_tx_data.json')) }
+      input_data { JSON.parse(read_fixture_file('files/erc20_tx_input_data.json')) }
+    end
   end
 end

@@ -61,6 +61,6 @@ class Invoice < ApplicationRecord
   private
 
   def tax_multiplier
-    tax_bps / 10_000
+    tax_bps.to_f / 10_000.0
   end
 end

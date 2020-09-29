@@ -24,7 +24,21 @@ FactoryBot.define do
     number { '001' }
     due_at { Time.now + 30.days }
     description { nil }
-    tax_bps { 1000 }
+    tax_bps { 0 }
     payment_address { '0xBeE21365A462b8df12CFE9ab7C40f1BB5f5ED495' }
+
+    association :token, factory: :token
+    association :issuer_contact, factory: :contact
+    association :client_contact, factory: :contact
+
+    trait :with_line_item do
+      after :build do |invoice|
+        invoice.line_items << build_list(:line_item, 1, invoice: nil)
+      end
+    end
+
+    trait :erc20 do
+      association :token, :erc20
+    end
   end
 end

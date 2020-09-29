@@ -6,6 +6,7 @@ require 'rails/test_help'
 require 'minitest-spec-rails'
 require 'database_cleaner'
 require 'support/database_cleaner_support'
+require 'support/fixtures_helper'
 
 ActionController::API.config.allow_forgery_protection = false
 

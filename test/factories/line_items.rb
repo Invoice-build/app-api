@@ -19,9 +19,7 @@ FactoryBot.define do
     description { 'Item details' }
     quantity { 1 }
     quantity_type { 'month' }
-    unit_price { 100 }
     unit_price_units { 100e6 }
-    amount { 100 }
     amount_units { 100e6 }
   end
 end

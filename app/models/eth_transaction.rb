@@ -41,7 +41,7 @@ class EthTransaction < ApplicationRecord
   end
 
   def native?
-    details&.native
+    details[:native]
   end
 
   def token

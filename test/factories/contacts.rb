@@ -22,5 +22,7 @@ FactoryBot.define do
     tax_number { '123456' }
     email { 'gareth@remotely.digital' }
     phone { '+447701072712' }
+
+    # association :address, factory: :address
   end
 end

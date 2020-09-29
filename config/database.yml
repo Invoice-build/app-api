@@ -5,15 +5,16 @@ defaults: &defaults
 
 dev_defaults: &dev_defaults
   host: db
-  username: user
-  password: password
+  username: postgres
+  password: postgres
 
 development:
   <<: [*defaults, *dev_defaults]
+  database: invoice_build_development
   
 test:
-  <<: [*defaults]
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: [*defaults, *dev_defaults]
+  database: invoice_build_test
 
 production:
   <<: *defaults
