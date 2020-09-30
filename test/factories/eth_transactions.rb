@@ -24,7 +24,7 @@ FactoryBot.define do
     reference { 'payment' }
     confirmed_at { nil }
     failed_at { nil }
-    data { JSON.parse(read_fixture_file('files/eth_tx_data.json')) }
+    data { JSON.parse(read_fixture_file('eth_tx_data.json')) }
     transactable_type { 'Invoice' }
 
     trait :confirmed do
@@ -33,8 +33,8 @@ FactoryBot.define do
     end
 
     trait :erc20 do
-      data { JSON.parse(read_fixture_file('files/erc20_tx_data.json')) }
-      input_data { JSON.parse(read_fixture_file('files/erc20_tx_input_data.json')) }
+      data { JSON.parse(read_fixture_file('erc20_tx_data.json')) }
+      input_data { JSON.parse(read_fixture_file('erc20_tx_input_data.json')) }
     end
   end
 end
