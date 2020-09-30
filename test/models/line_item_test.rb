@@ -22,11 +22,11 @@ class LineItemTest < ActiveSupport::TestCase
       @line_item = build(:line_item, quantity: 2, unit_price: 220)
       @invoice = create(:invoice, line_items: [@line_item])
     end
-  
+
     it 'has correct unit_price_units' do
       assert_equal @line_item.unit_price_units, 220e6
     end
-  
+
     it 'has correct amount and amount_units' do
       assert_equal @line_item.amount, 440
       assert_equal @line_item.amount_units, 440e6

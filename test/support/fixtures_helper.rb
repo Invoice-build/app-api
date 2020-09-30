@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def fixture_file_path(filename)
   Rails.root.join("test/fixtures/#{filename}").to_s
 end
