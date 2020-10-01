@@ -1,24 +1,5 @@
-# README
+# Invoice.build API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the API service for the [invoice.build](https://invoice.build) app. It is a Rails 6 API running on Ruby 2.7.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To setup the invoice.build app locally please follow the instructions in the [app-dev](https://github.com/Invoice-build/app-dev) repo.
