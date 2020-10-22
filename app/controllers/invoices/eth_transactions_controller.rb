@@ -18,6 +18,7 @@ module Invoices
       eth_transaction = invoice.eth_transactions.build(eth_transaction_params)
 
       if eth_transaction.save
+        EventBus.publish(:eth_transaction_created, eth_transaction_id: eth_transaction.id)
         render json: eth_transaction, status: :created
       else
         render json: eth_transaction.errors, status: :unprocessable_entity

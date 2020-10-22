@@ -30,6 +30,7 @@ class InvoicesController < ApplicationController
     invoice = Invoice.new(invoice_params)
 
     if invoice.save
+      EventBus.publish(:invoice_created, invoice_id: invoice.id)
       render json: invoice, status: :ok
     else
       render json: invoice.errors, status: :unprocessable_entity

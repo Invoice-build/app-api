@@ -85,6 +85,7 @@ GEM
       money-tree (~> 0.10.0)
       rlp (~> 0.7.3)
       scrypt (~> 3.0.6)
+    event_bus (1.1.1)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.1.0)
@@ -188,6 +189,7 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    slack-notifier (2.3.2)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -221,6 +223,7 @@ DEPENDENCIES
   byebug
   database_cleaner
   eth
+  event_bus
   factory_bot_rails
   jwt
   listen (~> 3.2)
@@ -231,6 +234,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.2)
   rubocop (= 0.89.0)
   sidekiq
+  slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
