@@ -41,6 +41,7 @@ Style/ClassAndModuleChildren:
   Exclude:
     - 'lib/active_storage/**/*'
     - 'test/**/*'
+    - 'app/jobs/**/*'
 Style/MissingRespondToMissing:
   Enabled: false
 Lint/MissingSuper:
