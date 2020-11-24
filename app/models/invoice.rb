@@ -28,16 +28,22 @@ class Invoice < ApplicationRecord
   # ASSOCIATIONS
   has_many :line_items, dependent: :destroy
   belongs_to :token
-  belongs_to :issuer_contact, class_name: 'Contact', foreign_key: 'issuer_contact_id'
-  belongs_to :client_contact, class_name: 'Contact', foreign_key: 'client_contact_id'
+  belongs_to :issuer_contact, class_name: 'Contact', foreign_key: 'issuer_contact_id', optional: -> { encrypted? }
+  belongs_to :client_contact, class_name: 'Contact', foreign_key: 'client_contact_id', optional: -> { encrypted? }
 
   accepts_nested_attributes_for :issuer_contact, :client_contact
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
   # VALIDATIONS
-  validates :number, :payment_address, :line_items, :network, presence: true
+  validates :number, :payment_address, :line_items, :network, :issuer_contact, :client_contact, presence: true, if: -> { !encrypted? }
+  validates :network, :data_hash, presence: true, if: -> { encrypted? }
+  validates :number, :payment_address, :line_items, :issuer_contact, :client_contact, :description, absence: true, if: -> { encrypted? }
 
   # METHODS
+  def encrypted?
+    data_hash?  
+  end
+
   def subtotal
     from_units(line_items.sum(:amount_units))
   end

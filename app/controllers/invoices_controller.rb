@@ -14,8 +14,19 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # POST /invoices/:id/show_auth
-  def show_auth
+  # GET /invoices/:id/encrypted
+  def encrypted
+    invoice = Invoice.find(params[:id])
+
+    if invoice.encrypted?
+      render json: invoice, status: :ok
+    else
+      head :unprocessable_entity
+    end
+  end
+
+  # POST /invoices/:id/auth
+  def auth
     invoice = Invoice.find(params[:id])
 
     if invoice.authenticate(params[:password])
@@ -37,18 +48,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # PATCH /invoices/:id
-  # TODO: only allow if signed in
-  # def update
-  #   invoice = Invoice.find(params[:id])
-
-  #   if invoice.update(invoice_params)
-  #     render json: invoice, status: :ok
-  #   else
-  #     render json: invoice.errors, status: :unprocessable_entity
-  #   end
-  # end
-
   private
 
   def invoice_params
@@ -59,7 +58,7 @@ class InvoicesController < ApplicationController
     line_items_attributes = %i[id description quantity quantity_type unit_price _destroy]
 
     params.require(:invoice).permit(
-      :number, :due_at, :description, :tax_bps, :payment_address, :token_id, :network, :password,
+      :number, :due_at, :description, :tax_bps, :payment_address, :token_id, :network, :password, :data_hash,
       issuer_contact_attributes: contact_attributes,
       client_contact_attributes: contact_attributes,
       line_items_attributes: line_items_attributes

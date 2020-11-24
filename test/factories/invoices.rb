@@ -40,5 +40,16 @@ FactoryBot.define do
     trait :erc20 do
       association :token, :erc20
     end
+
+    trait :encrypted do
+      number { nil }
+      due_at { nil }
+      description { nil }
+      tax_bps { 0 }
+      payment_address { nil }
+      issuer_contact { nil }
+      client_contact { nil }
+      data_hash { 'xyz' }
+    end
   end
 end

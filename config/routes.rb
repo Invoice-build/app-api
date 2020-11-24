@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   resources :invoices, only: [:show, :create] do
     member do 
-      post :show_auth
+      post :auth
+      get :encrypted
     end
     resources :eth_transactions, only: [:show, :index, :create], controller: 'invoices/eth_transactions'
   end

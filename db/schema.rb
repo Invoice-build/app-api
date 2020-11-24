@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_192648) do
+ActiveRecord::Schema.define(version: 2020_11_19_202717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_08_18_192648) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "network", default: "mainnet"
     t.text "password_digest"
+    t.text "data_hash"
     t.index ["account_id"], name: "index_invoices_on_account_id"
     t.index ["client_contact_id"], name: "index_invoices_on_client_contact_id"
     t.index ["issuer_contact_id"], name: "index_invoices_on_issuer_contact_id"

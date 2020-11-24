@@ -22,7 +22,8 @@
 class InvoiceSerializer < ActiveModel::Serializer
   attributes :id, :number, :due_at, :description, :tax_bps, :payment_address,
              :issuer_contact_attributes, :client_contact_attributes, :token_id,
-             :line_items_attributes, :created_at, :total, :network, :paid, :paid_amount
+             :line_items_attributes, :created_at, :total, :network, :paid, :paid_amount,
+             :data_hash
 
   belongs_to :token
 
