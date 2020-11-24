@@ -98,7 +98,7 @@ class InvoiceTest < ActiveSupport::TestCase
       # With a data_hash
       invoice = build(:invoice, tax_bps: 1000, line_items: @line_items, data_hash: 'xyz')
       assert_not invoice.valid?
-      
+
       # With no issue details
       invoice = build(:invoice, tax_bps: 1000, line_items: @line_items, issuer_contact: nil)
       assert_not invoice.save

@@ -41,7 +41,7 @@ class Invoice < ApplicationRecord
 
   # METHODS
   def encrypted?
-    data_hash?  
+    data_hash?
   end
 
   def subtotal
